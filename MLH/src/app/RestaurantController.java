@@ -20,7 +20,11 @@ public class RestaurantController {
 	@RequestMapping("/restaurant")
 	@ResponseBody
 	public RestaurantQueue askRestaurant(@RequestParam(value="id") String id) {
-		return repo.findOne(id);
+		RestaurantQueue rq = repo.findOne(id);
+		if (rq == null) {
+			rq = new RestaurantQueue(null, 0, 0);
+		}
+		return rq;
 	}
 	
 	@RequestMapping("/restaurant/update")
